@@ -1,0 +1,24 @@
+// Version: 1.0.0
+type ContactSubmission__390548495 =
+  {
+    email : Text;
+    industry : Text;
+    message : Text;
+    name : Text;
+    timestamp : Time__900049286
+  };
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+actor {
+  stable contactSubmissions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactSubmission__390548495]];
+      var elementIndex : Nat__490723111
+    };
+  stable var pageViews : Nat
+};

@@ -1,0 +1,295 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,300;1,400&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Midnight theme — deep charcoal base */
+    --background: 0.09 0.01 264;
+    --foreground: 0.97 0.005 264;
+    --card: 0.12 0.015 264;
+    --card-foreground: 0.97 0.005 264;
+    --popover: 0.13 0.015 264;
+    --popover-foreground: 0.97 0.005 264;
+    --primary: 0.87 0.19 195;
+    --primary-foreground: 0.09 0.01 264;
+    --secondary: 0.16 0.015 264;
+    --secondary-foreground: 0.97 0.005 264;
+    --muted: 0.16 0.015 264;
+    --muted-foreground: 0.6 0.01 264;
+    --accent: 0.87 0.19 195;
+    --accent-foreground: 0.09 0.01 264;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 1 0 0 / 8%;
+    --input: 1 0 0 / 10%;
+    --ring: 0.87 0.19 195;
+
+    /* Electric Cyan: #00FFFF ≈ oklch(0.87 0.19 195) */
+    --electric-cyan: #00ffff;
+
+    /* Brand tokens */
+    --midnight-bg: #0b0e11;
+    --midnight-card: #0d1117;
+    --midnight-card-2: #0f1318;
+
+    /* Chart */
+    --chart-1: 0.87 0.19 195;
+    --chart-2: 0.7 0.15 195;
+    --chart-3: 0.5 0.12 195;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    /* Sidebar */
+    --sidebar: 0.12 0.015 264;
+    --sidebar-foreground: 0.97 0.005 264;
+    --sidebar-primary: 0.87 0.19 195;
+    --sidebar-primary-foreground: 0.09 0.01 264;
+    --sidebar-accent: 0.16 0.015 264;
+    --sidebar-accent-foreground: 0.97 0.005 264;
+    --sidebar-border: 1 0 0 / 8%;
+    --sidebar-ring: 0.87 0.19 195;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-color: #0b0e11;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Offset anchor targets below the fixed 64px navbar */
+  [id] {
+    scroll-margin-top: 64px;
+  }
+}
+
+/* ───── Marquee ─────────────────────────────────────────────── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* ───── Connector background canvas ────────────────────────── */
+.connector-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ───── Service card glass hover ────────────────────────────── */
+.glass-service-card {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s
+    ease;
+}
+
+.glass-service-card:hover {
+  border-color: rgba(0, 255, 255, 0.25) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.12), 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+  transform: translateY(-2px);
+}
+
+/* ───── How It Works card hover ─────────────────────────────── */
+.hiw-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color
+    0.25s ease, box-shadow 0.25s ease;
+}
+
+.hiw-card:hover {
+  transform: scale(1.02) translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6), 0 0 32px rgba(0, 255, 255, 0.12), 0
+    0 0 1px rgba(0, 255, 255, 0.15) inset !important;
+}
+
+/* ───── Journey node hover ──────────────────────────────────── */
+.journey-node {
+  transition: transform 0.3s ease;
+}
+.journey-node:hover {
+  transform: translateY(-4px);
+}
+
+/* ───── Funnel chevrons (legacy) ────────────────────────────── */
+.chevron-step {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%,
+    14px 50%
+  );
+}
+
+.chevron-step:first-child {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 50%,
+    calc(100% - 14px) 100%,
+    0 100%
+  );
+}
+
+/* ───── Sticky audit bar ────────────────────────────────────── */
+.sticky-audit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  transition: backdrop-filter 0.15s ease, -webkit-backdrop-filter 0.15s ease;
+}
+
+/* Reduce expensive blur during active scroll */
+body[data-scrolling] .sticky-audit-bar {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+body[data-scrolling] nav {
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+/* ───── Lightbox dialog ─────────────────────────────────────── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+/* ───── Flow diagram ────────────────────────────────────────── */
+.flow-node {
+  background: rgba(0, 255, 255, 0.12);
+  color: #00ffff;
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.12);
+}
+
+.flow-connector {
+  color: #00ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ───── Section fade-in (legacy support) ────────────────────── */
+.fade-in-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ───── Cyan neon glow utility ──────────────────────────────── */
+.cyan-glow {
+  color: #00f2ea;
+}
+
+.cyan-box-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15), 0 0 40px rgba(0, 255, 255, 0.08);
+}
+
+/* ───── Data-Bar highlight on "Time" ────────────────────────── */
+.time-highlight {
+  position: relative;
+  display: inline-block;
+}
+
+.time-highlight::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 4px;
+  width: 0;
+  border-radius: 2px;
+  background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.7) 50%,
+      transparent 100%
+    )
+    no-repeat, linear-gradient(90deg, #00f2ea 0%, #00c9ff 100%);
+  background-size: 60px 100%, 100% 100%;
+  background-position: -60px center, 0 0;
+  box-shadow: 0 0 15px rgba(0, 242, 234, 0.8);
+  animation: data-bar-expand 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards,
+    pulse-scan 3s ease-in-out 1.2s infinite;
+}
+
+@keyframes data-bar-expand {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes pulse-scan {
+  0% {
+    background-position: -60px center, 0 0;
+  }
+  60% {
+    background-position: calc(100% + 60px) center, 0 0;
+  }
+  100% {
+    background-position: calc(100% + 60px) center, 0 0;
+  }
+}
+
+/* ───── SVG signature draw animation ────────────────────────── */
+.sign-path {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  transition: none;
+}
+
+.sign-animate {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.5s ease-in-out;
+}

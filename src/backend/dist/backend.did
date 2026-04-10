@@ -1,0 +1,16 @@
+type Time = int;
+type ContactSubmission = 
+ record {
+   email: text;
+   industry: text;
+   message: text;
+   name: text;
+   timestamp: Time;
+ };
+service : {
+  addSubmission: (name: text, email: text, industry: text, message: text) ->
+   (ContactSubmission);
+  getPageViews: () -> (nat) query;
+  getSubmissions: () -> (vec ContactSubmission) query;
+  incrementCounter: () -> (nat);
+}
